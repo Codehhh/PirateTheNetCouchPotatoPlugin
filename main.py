@@ -71,6 +71,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
         # SKW?
         if(self.conf('skw')):
             search_params['skw'] = 'skwonly'
+            log.info("Searching for SKALiWAGZ only")
         try:
             r = self.session.get(self.urls['search'], params=search_params)
         except requests.RequestException as e:
@@ -134,10 +135,10 @@ class PirateTheNet(TorrentProvider, MovieProvider):
                 torrentdata.group = str(tmp["group"])
             torrentdata.imdb = str(imdbList[i])
             if(torrentdata.resolution == quality["custom"]["quality"] and torrentdata.imdb == movie["identifiers"]["imdb"]):
-                log.info('Group: ' + torrentdata.group)
                 torrentList.append(torrentdata)
 
 
+        log.info('Found %d torrents' % len(torrentList))
         for torrent in torrentList:
             log.info('PirateTheNet found ' + torrent.torrentname)
             results.append({
@@ -152,7 +153,6 @@ class PirateTheNet(TorrentProvider, MovieProvider):
 
     def getLoginParams(self):
         return {
-		'username': str(self.conf('username')),
 		'password': str(self.conf('password')),
 		'loginkey': str(self.conf('key'))
                }

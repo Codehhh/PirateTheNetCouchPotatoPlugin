@@ -24,6 +24,7 @@ config = [{
                           {
                               'name': 'key',
                               'default': '',
+                              'type': 'password',
                           },
                           {
                               'name': 'password',
