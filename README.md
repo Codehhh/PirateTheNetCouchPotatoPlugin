@@ -1,11 +1,11 @@
 # PirateTheNet CouchPotato Plugin
 
 ## Dependencies
-Name | Install
-- |-
-lxml | apt-get install libxml2-dev libxslt-dev python-dev
-requests | pip install requests
-PTN | pip install parse-torrent-name
+|Name|Install|
+|-|-|
+|lxml|apt-get install libxml2-dev libxslt-dev python-dev|
+|requests|pip install requests|
+|PTN|pip install parse-torrent-name|
 
 ## Install
 ####Option  1
