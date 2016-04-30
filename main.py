@@ -14,7 +14,7 @@ import PTN
 log = CPLog(__name__)
 
 class TorrentDetails(object):
-    def __init__(self, seeders, leechers, downlink, torrentname, filesize, quality, resolution, imdb, group):
+    def __init__(self, seeders, leechers, downlink, torrentname, filesize, quality, resolution, imdb, group, detail):
                 self.seeders = seeders
                 self.leechers = leechers
                 self.downlink = downlink
@@ -24,6 +24,7 @@ class TorrentDetails(object):
                 self.resolution = resolution
                 self.imdb = imdb
                 self.group = group
+                self.detail = detail
  
 class PirateTheNet(TorrentProvider, MovieProvider):
     default_search_params = {
@@ -76,7 +77,6 @@ class PirateTheNet(TorrentProvider, MovieProvider):
             r = self.session.get(self.urls['search'], params=search_params)
         except requests.RequestException as e:
             log.info('Error searching ptn: %s' % e)
-            log.info("Made it here")
             log.info(str(tree))
 
         tree = html.fromstring(r.content)
@@ -96,6 +96,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
         imdbCount = 0
         imdbList = []
         maxRun = 0
+        detailList = []
         for dl in tDownload:
             if maxRun >= 20:
                 break
@@ -104,8 +105,12 @@ class PirateTheNet(TorrentProvider, MovieProvider):
                 imdbCount += 1
             if "download" in dl:
                 downloadList.append(self.urls['baseurl']+dl)
-                imdbList.append(imdbDict[str(imdbCount-1)])
                 maxRun += 1
+                imdbList.append(imdbDict[str(imdbCount-1)])
+            if "detail.php" in dl and "&" not in dl:
+                detailList.append(self.urls['baseurl']+dl[:7]+'s'+dl[7:])
+
+
             
         # Get torrent name
         tID = tree.xpath('//a[@class="lightview"]/text()')
@@ -121,12 +126,14 @@ class PirateTheNet(TorrentProvider, MovieProvider):
         maxRun = min(len(seederList),maxRun)
         for i in range(0,maxRun):
             tmp = PTN.parse(idList[i])
-            torrentdata = TorrentDetails(0,0,'','','','','','','')
+            torrentdata = TorrentDetails(0,0,'','','','','','','','')
             torrentdata.seeders = int(seederList[i])
             torrentdata.leechers = 0
             torrentdata.downlink = str(downloadList[i])
             torrentdata.torrentname = str(idList[i])
             torrentdata.size = str(sizeList[i])
+            torrentdata.detail = str(detailList[i])
+            
             if("quality" in tmp):
                 torrentdata.quality = str(tmp["quality"])
             if("resolution" in tmp):
@@ -146,7 +153,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
                 'seeders' : torrent.seeders,
                 'name' : torrent.torrentname,
                 'url' : torrent.downlink,
-                'detail_url' : '',
+                'detail_url' : torrent.detail,
                 'id' : '',
                 'size' : self.parseSize(torrent.size)
                 })
