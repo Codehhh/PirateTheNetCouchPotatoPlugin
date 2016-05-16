@@ -141,10 +141,13 @@ class PirateTheNet(TorrentProvider, MovieProvider):
                 torrentdata.resolution = str(tmp["resolution"])
             if("group" in tmp):
                 torrentdata.group = str(tmp["group"])
+		if(self.conf('pref_skw')):
+			if(str(temp["group"]) == 'SKALiWAGZ'):
+				torrentdata.score += 1000
             torrentdata.imdb = str(imdbList[i])
             if(torrentdata.resolution == quality["custom"]["quality"] and torrentdata.imdb == movie["identifiers"]["imdb"]):
                 torrentList.append(torrentdata)
-	    torrentdata.score = self.conf('extra_score')
+	    torrentdata.score += self.conf('extra_score')
 
 
         log.info('Found %d torrents' % len(torrentList))

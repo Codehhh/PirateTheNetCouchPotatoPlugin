@@ -39,6 +39,13 @@ config = [{
                               'description': 'Only searches for SKALiWAGZ torrents.',
                           },
 			  {
+			      'name': 'pref_skw',
+			      'label': 'Prefer SKALiWAGZ',
+			      'defaults': False,
+			      'type': 'bool',
+			      'description': 'Prefer SKALiWAGZ torrents.',
+			  },
+			  {
 		              'name': 'extra_score',
 			      'advanced': True,
 			      'label': 'Extra Score',
