@@ -14,7 +14,7 @@ import PTN
 log = CPLog(__name__)
 
 class TorrentDetails(object):
-    def __init__(self, seeders, leechers, downlink, torrentname, filesize, quality, resolution, imdb, group, detail):
+    def __init__(self, seeders, leechers, downlink, torrentname, filesize, quality, resolution, imdb, group, detail, score):
                 self.seeders = seeders
                 self.leechers = leechers
                 self.downlink = downlink
@@ -25,6 +25,7 @@ class TorrentDetails(object):
                 self.imdb = imdb
                 self.group = group
                 self.detail = detail
+		self.score = score
  
 class PirateTheNet(TorrentProvider, MovieProvider):
     default_search_params = {
@@ -126,7 +127,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
         maxRun = min(len(seederList),maxRun)
         for i in range(0,maxRun):
             tmp = PTN.parse(idList[i])
-            torrentdata = TorrentDetails(0,0,'','','','','','','','')
+            torrentdata = TorrentDetails(0,0,'','','','','','','','',0)
             torrentdata.seeders = int(seederList[i])
             torrentdata.leechers = 0
             torrentdata.downlink = str(downloadList[i])
@@ -143,6 +144,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
             torrentdata.imdb = str(imdbList[i])
             if(torrentdata.resolution == quality["custom"]["quality"] and torrentdata.imdb == movie["identifiers"]["imdb"]):
                 torrentList.append(torrentdata)
+	    torrentdata.score = self.conf('extra_score')
 
 
         log.info('Found %d torrents' % len(torrentList))
