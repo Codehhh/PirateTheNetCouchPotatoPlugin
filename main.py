@@ -142,7 +142,7 @@ class PirateTheNet(TorrentProvider, MovieProvider):
             if("group" in tmp):
                 torrentdata.group = str(tmp["group"])
 		if(self.conf('pref_skw')):
-			if(str(temp["group"]) == 'SKALiWAGZ'):
+			if(str(tmp["group"]) == 'SKALiWAGZ'):
 				torrentdata.score += 1000
             torrentdata.imdb = str(imdbList[i])
             if(torrentdata.resolution == quality["custom"]["quality"] and torrentdata.imdb == movie["identifiers"]["imdb"]):
