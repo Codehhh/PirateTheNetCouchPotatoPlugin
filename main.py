@@ -124,7 +124,11 @@ class PirateTheNet(TorrentProvider, MovieProvider):
                 idList.append(dl)
                 maxRun += 1
         torrentList = []
-        maxRun = min(len(seederList),maxRun)
+	maxRun = min(len(seederList),maxRun)
+        maxRun = min(len(downloadList),maxRun)
+        maxRun = min(len(idList),maxRun)
+        maxRun = min(len(sizeList),maxRun)
+        maxRun = min(len(detailList),maxRun)
         for i in range(0,maxRun):
             tmp = PTN.parse(idList[i])
             torrentdata = TorrentDetails(0,0,'','','','','','','','',0)
