@@ -47,9 +47,9 @@ class PirateTheNet(TorrentProvider, MovieProvider):
         }
 
     urls = {
-        'baseurl': 'http://piratethe.net',
+        'baseurl': 'http://piratethenet.org',
 	'login': 'http://piratethenet.org/takelogin.php',
-	'login_check': 'http://piratethe.net/index.php',
+	'login_check': 'http:/piratethenet.org/index.php',
         'search': 'http://piratethenet.org/torrentsutils.php'
         }
 
