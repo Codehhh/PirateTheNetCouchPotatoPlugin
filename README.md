@@ -8,7 +8,7 @@
 | PTN      | pip install parse-torrent-name                     |
 
 ## Install
-####Option  1
+#### Option  1
  - From CouchPotato go to Settings->About->Directories and the second folder is the location of your data folder.
  - In your data folder there will be a custom_plugins folder. Create a new folder in the custom_ plugins folder called piratethenet
  - Simply place `init.py` and `main.py` files inside the piratethenet folder.
@@ -25,7 +25,7 @@
  - Restart CouchPotato
 
 
-##How To Use
+## How To Use
 From CouchPotato go to Settings->Searcher to configure just like any other provider. If PirateTheNet doesn't appear as an option, refresh your browser using CTRL + F5 as you may be seeing a cached version.
 
 
